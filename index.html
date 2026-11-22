@@ -1,0 +1,1273 @@
+<!DOCTYPE html>
+<html lang="pl" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0A0A0A">
+  <title>Filip Horabik — Nowoczesne strony dla lokalnych firm w Krakowie | horabik.com</title>
+  <meta name="description" content="Szybkie, minimalistyczne strony wizytówki dla lokalnych firm w Krakowie. Perfekcyjny widok na telefonie, integracja z Google Maps i 0 zł opłat za hosting (płacisz tylko za własną domenę).">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Filip Horabik — Nowoczesne strony dla lokalnych firm w Krakowie">
+  <meta property="og:description" content="Tworzę szybkie strony wizytówki, które świetnie wyglądają na telefonie i działają z 0 zł opłat za hosting — płacisz tylko za własną domenę.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://horabik.com">
+  <meta property="og:locale" content="pl_PL">
+
+  <!-- Inline SVG Favicon (zero zewnętrznych żądań / 404 na Cloudflare Pages) -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%230A0A0A' stroke='%23262626' stroke-width='2'/%3E%3Ctext x='18' y='45' font-family='system-ui,sans-serif' font-size='38' font-weight='700' fill='%23FFFFFF'%3Eh%3C/text%3E%3Ccircle cx='47' cy='43' r='4.5' fill='%233B82F6'/%3E%3C/svg%3E">
+
+  <!-- Google Fonts: Inter & Space Grotesk -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
+            display: ['Space Grotesk', 'system-ui', '-apple-system', 'sans-serif']
+          },
+          colors: {
+            bg: '#0A0A0A',
+            surface: '#141414',
+            border: '#262626',
+            accent: {
+              DEFAULT: '#3B82F6',
+              hover: '#2563EB',
+              light: '#60A5FA'
+            }
+          }
+        }
+      }
+    };
+  </script>
+
+  <style>
+    html {
+      scroll-behavior: smooth;
+      background-color: #0A0A0A;
+      color: #FFFFFF;
+    }
+
+    body {
+      background-color: #0A0A0A;
+      color: #FFFFFF;
+      overflow-x: clip;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* Subtelna siatka i delikatna poświata w sekcji Hero */
+    .hero-grid {
+      background-image:
+        radial-gradient(ellipse 65% 55% at 50% 0%, rgba(59, 130, 246, 0.16), transparent 72%),
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 100% 100%, 48px 48px, 48px 48px;
+      mask-image: radial-gradient(ellipse 85% 85% at 50% 20%, #000 50%, transparent 100%);
+      -webkit-mask-image: radial-gradient(ellipse 85% 85% at 50% 20%, #000 50%, transparent 100%);
+    }
+
+    /* Subtelne poświaty tła pod sekcjami dla miękkiej głębi pod szkłem */
+    .section-glow-oferta {
+      background:
+        radial-gradient(ellipse 52% 45% at 15% 25%, rgba(59, 130, 246, 0.1), transparent 70%),
+        radial-gradient(ellipse 48% 42% at 85% 78%, rgba(255, 255, 255, 0.03), transparent 70%);
+    }
+
+    .section-glow-realizacje {
+      background:
+        radial-gradient(ellipse 55% 48% at 50% 20%, rgba(59, 130, 246, 0.11), transparent 72%),
+        radial-gradient(ellipse 45% 40% at 80% 85%, rgba(255, 255, 255, 0.03), transparent 70%);
+    }
+
+    .section-glow-kontakt {
+      background:
+        radial-gradient(ellipse 60% 55% at 50% 50%, rgba(59, 130, 246, 0.12), transparent 72%),
+        radial-gradient(ellipse 40% 35% at 20% 20%, rgba(255, 255, 255, 0.03), transparent 70%);
+    }
+
+    /* Lekki, matowy glassmorphism (bez nadmiernej przezroczystości liquid glass) */
+    .glass-nav {
+      background: rgba(10, 10, 10, 0.62);
+      backdrop-filter: blur(16px) saturate(140%);
+      -webkit-backdrop-filter: blur(16px) saturate(140%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+      box-shadow: inset 0 -1px 0 rgba(255, 255, 255, 0.03);
+    }
+
+    .glass-card {
+      background: linear-gradient(180deg, rgba(28, 28, 30, 0.58) 0%, rgba(18, 18, 20, 0.46) 100%);
+      backdrop-filter: blur(16px) saturate(135%);
+      -webkit-backdrop-filter: blur(16px) saturate(135%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 8px 30px rgba(0, 0, 0, 0.28);
+    }
+
+    .glass-card-hover {
+      transform: scale(1);
+      transition: background 0.35s ease, border-color 0.35s ease, box-shadow 0.35s ease, transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .glass-card-hover:hover {
+      background: linear-gradient(180deg, rgba(34, 34, 38, 0.66) 0%, rgba(20, 20, 24, 0.54) 100%);
+      border-color: rgba(59, 130, 246, 0.45);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 14px 38px rgba(0, 0, 0, 0.38), 0 0 26px rgba(59, 130, 246, 0.1);
+      transform: scale(1.022);
+    }
+
+    .glass-card-hover:active {
+      transform: scale(0.992);
+    }
+
+    .glass-subtle {
+      background: rgba(255, 255, 255, 0.045);
+      backdrop-filter: blur(12px) saturate(130%);
+      -webkit-backdrop-filter: blur(12px) saturate(130%);
+      border: 1px solid rgba(255, 255, 255, 0.09);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+
+    .glass-subtle-hover {
+      transform: scale(1);
+      transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .glass-subtle-hover:hover {
+      background: rgba(255, 255, 255, 0.08);
+      border-color: rgba(59, 130, 246, 0.45);
+      transform: scale(1.012);
+    }
+
+    .glass-subtle-hover:active {
+      transform: scale(0.992);
+    }
+
+    .glass-modal {
+      background: linear-gradient(180deg, rgba(26, 26, 28, 0.84) 0%, rgba(16, 16, 18, 0.78) 100%);
+      backdrop-filter: blur(22px) saturate(140%);
+      -webkit-backdrop-filter: blur(22px) saturate(140%);
+      border: 1px solid rgba(255, 255, 255, 0.11);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), 0 24px 64px rgba(0, 0, 0, 0.6);
+    }
+
+    /* Powolny efekt wędrującej ramki wokół elementów */
+    @property --border-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
+    }
+
+    @keyframes border-orbit {
+      from {
+        --border-angle: 0deg;
+      }
+      to {
+        --border-angle: 360deg;
+      }
+    }
+
+    .glass-border-flow {
+      position: relative;
+      --border-duration: 10s;
+      --border-delay: 0s;
+    }
+
+    .border-slow {
+      --border-duration: 13s;
+    }
+
+    .border-delay-1 {
+      --border-delay: -2.5s;
+    }
+
+    .border-delay-2 {
+      --border-delay: -5s;
+    }
+
+    .border-delay-3 {
+      --border-delay: -7.5s;
+    }
+
+    @supports ((mask-composite: exclude) or (-webkit-mask-composite: xor)) {
+      .glass-border-flow {
+        border-width: 0;
+      }
+
+      .glass-border-flow::before {
+        content: '';
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: conic-gradient(
+          from var(--border-angle) at 50% 50%,
+          rgba(255, 255, 255, 0.08) 0deg,
+          rgba(255, 255, 255, 0.08) 235deg,
+          rgba(59, 130, 246, 0.22) 280deg,
+          rgba(96, 165, 250, 0.72) 320deg,
+          rgba(255, 255, 255, 0.42) 340deg,
+          rgba(255, 255, 255, 0.08) 360deg
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        mask-composite: exclude;
+        pointer-events: none;
+        z-index: 20;
+        opacity: 0.85;
+        transition: opacity 0.35s ease, filter 0.35s ease;
+        animation: border-orbit var(--border-duration) linear infinite;
+        animation-delay: var(--border-delay);
+      }
+
+      .glass-border-flow.glass-border-subtle::before {
+        opacity: 0.65;
+        background: conic-gradient(
+          from var(--border-angle) at 50% 50%,
+          rgba(255, 255, 255, 0.08) 0deg,
+          rgba(255, 255, 255, 0.08) 250deg,
+          rgba(59, 130, 246, 0.2) 295deg,
+          rgba(96, 165, 250, 0.56) 330deg,
+          rgba(255, 255, 255, 0.28) 346deg,
+          rgba(255, 255, 255, 0.08) 360deg
+        );
+      }
+
+      .glass-border-flow:hover::before {
+        opacity: 1;
+        filter: brightness(1.22);
+      }
+
+      .glass-card-hover.glass-border-flow:hover {
+        box-shadow: inset 0 0 0 1px rgba(59, 130, 246, 0.22), inset 0 1px 0 rgba(255, 255, 255, 0.12), 0 14px 38px rgba(0, 0, 0, 0.38), 0 0 28px rgba(59, 130, 246, 0.12);
+      }
+    }
+
+    /* Szybkie intro (preloader curtain — maks. 0.9s) */
+    @keyframes intro-word-in {
+      0% {
+        transform: translateY(115%);
+        opacity: 0;
+      }
+      100% {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    @keyframes intro-curtain-out {
+      0% {
+        transform: translateY(0);
+        visibility: visible;
+      }
+      99% {
+        transform: translateY(-100%);
+        visibility: visible;
+      }
+      100% {
+        transform: translateY(-100%);
+        visibility: hidden;
+        pointer-events: none;
+      }
+    }
+
+    .intro-curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background-color: #050505;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      will-change: transform;
+      animation: intro-curtain-out 0.44s cubic-bezier(0.76, 0, 0.24, 1) 0.44s forwards;
+    }
+
+    .intro-word {
+      display: inline-block;
+      will-change: transform, opacity;
+      animation: intro-word-in 0.34s cubic-bezier(0.16, 1, 0.3, 1) both;
+    }
+
+    /* Nieskończony pasek tekstowy (infinite CSS marquee) */
+    @keyframes marquee-scroll {
+      0% {
+        transform: translateX(0);
+      }
+      100% {
+        transform: translateX(-50%);
+      }
+    }
+
+    .marquee-wrap {
+      mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+      -webkit-mask-image: linear-gradient(to right, transparent, #000 7%, #000 93%, transparent);
+    }
+
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      will-change: transform;
+      animation: marquee-scroll 28s linear infinite;
+    }
+
+    .marquee-wrap:hover .marquee-track {
+      animation-play-state: paused;
+    }
+
+    /* Animacje pojawiania się sekcji (aktywne wyłącznie przy działającym JS) */
+    html.js-ready .reveal {
+      opacity: 0;
+      translate: 0 16px;
+      transition:
+        opacity 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        translate 0.55s cubic-bezier(0.16, 1, 0.3, 1),
+        background 0.35s ease,
+        border-color 0.35s ease,
+        box-shadow 0.35s ease,
+        transform 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    html.js-ready .reveal.is-visible {
+      opacity: 1;
+      translate: 0 0;
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html {
+        scroll-behavior: auto;
+      }
+      .intro-curtain {
+        display: none !important;
+        animation: none !important;
+      }
+      .intro-word,
+      .marquee-track,
+      .glass-border-flow::before {
+        animation: none !important;
+      }
+      html.js-ready .reveal {
+        opacity: 1;
+        translate: none;
+        transition: none;
+      }
+      .glass-card-hover,
+      .glass-card-hover:hover,
+      .glass-card-hover:active,
+      .glass-subtle-hover,
+      .glass-subtle-hover:hover,
+      .glass-subtle-hover:active {
+        transform: none !important;
+      }
+    }
+  </style>
+</head>
+<body class="font-sans text-white bg-bg selection:bg-accent selection:text-white">
+
+  <!-- Intro (Preloader Curtain, maks. 0.9s) -->
+  <div id="intro-curtain" class="intro-curtain" aria-hidden="true">
+    <div class="overflow-hidden px-4 py-1">
+      <span class="intro-word font-display text-2xl sm:text-4xl font-bold tracking-tight text-white">
+        horabik<span class="text-accent">.com</span>
+      </span>
+    </div>
+  </div>
+
+  <!-- Sekcja 1: Nawigacja -->
+  <header class="sticky top-0 z-50 glass-nav">
+    <nav class="max-w-6xl mx-auto px-5 sm:px-6 h-16 flex items-center justify-between" aria-label="Główna nawigacja">
+      <a href="#top" class="font-display font-semibold text-lg tracking-tight text-white hover:opacity-90 transition-opacity focus:outline-none focus-visible:ring-2 focus-visible:ring-accent rounded-lg px-1 -ml-1">
+        horabik<span class="text-accent">.com</span>
+      </a>
+
+      <!-- Linki desktop -->
+      <div class="hidden md:flex items-center gap-8 text-sm font-medium text-neutral-400">
+        <a href="#oferta" data-nav-link class="hover:text-white transition-colors py-1">Oferta</a>
+        <a href="#realizacje" data-nav-link class="hover:text-white transition-colors py-1">Realizacje</a>
+        <a href="#kontakt" data-nav-link class="hover:text-white transition-colors py-1">Kontakt</a>
+      </div>
+
+      <!-- Przycisk hamburger na telefonie (min. 44x44px) -->
+      <button
+        id="menu-toggle"
+        type="button"
+        class="md:hidden inline-flex items-center justify-center w-11 h-11 -mr-2 rounded-xl text-neutral-300 hover:text-white hover:bg-white/[0.06] border border-transparent hover:border-white/[0.1] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+        aria-label="Otwórz menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg id="icon-menu" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="4" y1="7" x2="20" y2="7"></line>
+          <line x1="4" y1="12" x2="20" y2="12"></line>
+          <line x1="4" y1="17" x2="20" y2="17"></line>
+        </svg>
+        <svg id="icon-close" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+        </svg>
+      </button>
+    </nav>
+
+    <!-- Menu mobilne -->
+    <div id="mobile-menu" class="hidden md:hidden glass-nav border-t border-white/[0.08]">
+      <div class="max-w-6xl mx-auto px-5 py-4 flex flex-col gap-1">
+        <a href="#oferta" data-mobile-link data-nav-link class="px-3 py-3 rounded-xl text-base font-medium text-neutral-300 hover:text-white hover:bg-white/[0.06] transition-colors">
+          Oferta
+        </a>
+        <a href="#realizacje" data-mobile-link data-nav-link class="px-3 py-3 rounded-xl text-base font-medium text-neutral-300 hover:text-white hover:bg-white/[0.06] transition-colors">
+          Realizacje
+        </a>
+        <a href="#kontakt" data-mobile-link data-nav-link class="px-3 py-3 rounded-xl text-base font-medium text-neutral-300 hover:text-white hover:bg-white/[0.06] transition-colors">
+          Kontakt
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- Sekcja 2: Hero -->
+    <section id="top" class="relative overflow-hidden pt-20 pb-20 sm:pt-28 sm:pb-28 lg:pt-32 lg:pb-32">
+      <div class="hero-grid absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 relative">
+        <!-- Badge -->
+        <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-subtle glass-border-flow glass-border-subtle border-slow text-xs sm:text-sm text-neutral-300 mb-7">
+          <span class="relative flex h-2 w-2" aria-hidden="true">
+            <span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent opacity-75"></span>
+            <span class="relative inline-flex rounded-full h-2 w-2 bg-accent"></span>
+          </span>
+          <span>Filip Horabik · Kraków</span>
+        </div>
+
+        <!-- Nagłówek główny -->
+        <h1 class="font-display text-4xl sm:text-5xl lg:text-6xl font-bold tracking-tight text-white leading-[1.08] max-w-3xl">
+          Nowoczesne strony dla lokalnych firm <span class="text-accent">w Krakowie</span>
+        </h1>
+
+        <!-- Podtytuł -->
+        <p class="mt-6 text-base sm:text-lg text-neutral-400 max-w-2xl leading-relaxed">
+          Tworzę szybkie strony wizytówki, które świetnie wyglądają na telefonie, ułatwiają kontakt klientom z okolicy i działają z 0 zł opłat za hosting — płacisz tylko za własną domenę.
+        </p>
+
+        <!-- Przyciski CTA -->
+        <div class="mt-9 flex flex-col sm:flex-row items-stretch sm:items-center gap-3.5">
+          <a
+            href="#kontakt"
+            class="inline-flex items-center justify-center gap-2.5 bg-accent hover:bg-accent-hover text-white font-medium px-6 py-3.5 rounded-xl shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_24px_rgba(59,130,246,0.26)] transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          >
+            <span>Napisz do mnie</span>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+              <path d="M5 12h14"></path>
+              <path d="m12 5 7 7-7 7"></path>
+            </svg>
+          </a>
+
+          <a
+            href="#realizacje"
+            class="inline-flex items-center justify-center gap-2 glass-subtle glass-subtle-hover text-neutral-200 font-medium px-6 py-3.5 rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2 focus-visible:ring-offset-bg"
+          >
+            <span>Zobacz realizacje</span>
+          </a>
+        </div>
+
+        <!-- Konkretne parametry -->
+        <div class="mt-14 glass-card glass-border-flow border-slow rounded-2xl p-4 sm:p-6 grid grid-cols-3 divide-x divide-white/[0.08] max-w-xl">
+          <div class="pr-2 sm:pr-6">
+            <div class="font-display text-lg sm:text-2xl font-bold text-white tracking-tight">0 zł</div>
+            <div class="text-xs sm:text-sm text-neutral-400 mt-1">Opłat za hosting</div>
+          </div>
+          <div class="px-2.5 sm:px-6">
+            <div class="font-display text-lg sm:text-2xl font-bold text-white tracking-tight">&lt; 1 s</div>
+            <div class="text-xs sm:text-sm text-neutral-400 mt-1">Ładowanie strony</div>
+          </div>
+          <div class="pl-2.5 sm:pl-6">
+            <div class="font-display text-lg sm:text-2xl font-bold text-white tracking-tight">100%</div>
+            <div class="text-xs sm:text-sm text-neutral-400 mt-1">Widok mobilny</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Pasek przewijany (Infinite Marquee) -->
+    <div class="border-y border-white/[0.08] bg-white/[0.02] backdrop-blur-sm py-3.5 overflow-hidden select-none" aria-label="Kluczowe atuty oferty">
+      <div class="marquee-wrap overflow-hidden">
+        <div class="marquee-track">
+          <div class="flex items-center shrink-0">
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">STRONY WIZYTÓWKI</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">KRAKÓW</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">0 ZŁ ZA HOSTING</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">MOBILE FIRST</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">GOOGLE MAPS</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">STRONY WIZYTÓWKI</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">KRAKÓW</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">0 ZŁ ZA HOSTING</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">MOBILE FIRST</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">GOOGLE MAPS</span>
+            <span class="text-accent text-xs" aria-hidden="true">·</span>
+          </div>
+          <div class="flex items-center shrink-0" aria-hidden="true">
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">STRONY WIZYTÓWKI</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">KRAKÓW</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">0 ZŁ ZA HOSTING</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">MOBILE FIRST</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">GOOGLE MAPS</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">STRONY WIZYTÓWKI</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">KRAKÓW</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">0 ZŁ ZA HOSTING</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">MOBILE FIRST</span>
+            <span class="text-accent text-xs">·</span>
+            <span class="px-4 sm:px-5 font-display text-xs sm:text-[13px] font-medium uppercase tracking-[0.22em] text-neutral-300">GOOGLE MAPS</span>
+            <span class="text-accent text-xs">·</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sekcja 3: Co dostajesz -->
+    <section id="oferta" class="relative overflow-hidden py-20 sm:py-24 scroll-mt-16">
+      <div class="section-glow-oferta absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 relative">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-medium uppercase tracking-[0.2em] text-accent">OFERTA</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mt-3">Co dostajesz</h2>
+          <p class="text-neutral-400 text-base sm:text-lg mt-3 leading-relaxed">
+            Wszystko, czego potrzebuje lokalna firma — bez abonamentów i zbędnej technologii.
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-2 gap-5">
+          <!-- Kafelek 1 -->
+          <article class="group glass-card glass-card-hover glass-border-flow rounded-2xl p-6 sm:p-7 reveal">
+            <div class="w-11 h-11 rounded-xl glass-subtle flex items-center justify-center text-accent mb-5 group-hover:scale-105 transition-transform duration-500">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <rect x="7" y="2" width="10" height="20" rx="2"></rect>
+                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg sm:text-xl font-semibold text-white">Pełna responsywność</h3>
+            <p class="text-sm sm:text-base text-neutral-400 mt-2.5 leading-relaxed">
+              Układ projektowany w pierwszej kolejności pod telefony. Czytelna oferta i szybki przycisk kontaktu na każdym ekranie.
+            </p>
+          </article>
+
+          <!-- Kafelek 2 -->
+          <article class="group glass-card glass-card-hover glass-border-flow border-delay-1 rounded-2xl p-6 sm:p-7 reveal">
+            <div class="w-11 h-11 rounded-xl glass-subtle flex items-center justify-center text-accent mb-5 group-hover:scale-105 transition-transform duration-500">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                <path d="m9 12 2 2 4-4"></path>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg sm:text-xl font-semibold text-white">Hosting i SSL za 0 zł</h3>
+            <p class="text-sm sm:text-base text-neutral-400 mt-2.5 leading-relaxed">
+              Wdrożenie na Cloudflare Pages z certyfikatem HTTPS. 0 zł opłat za hosting — jedyny koszt po Twojej stronie to roczne utrzymanie własnej domeny.
+            </p>
+          </article>
+
+          <!-- Kafelek 3 -->
+          <article class="group glass-card glass-card-hover glass-border-flow border-delay-2 rounded-2xl p-6 sm:p-7 reveal">
+            <div class="w-11 h-11 rounded-xl glass-subtle flex items-center justify-center text-accent mb-5 group-hover:scale-105 transition-transform duration-500">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg sm:text-xl font-semibold text-white">Integracja z Google Maps</h3>
+            <p class="text-sm sm:text-base text-neutral-400 mt-2.5 leading-relaxed">
+              Interaktywna mapa dojazdu, godziny otwarcia i spójne dane kontaktowe pod lokalne wyszukiwania w Google.
+            </p>
+          </article>
+
+          <!-- Kafelek 4 -->
+          <article class="group glass-card glass-card-hover glass-border-flow border-delay-3 rounded-2xl p-6 sm:p-7 reveal">
+            <div class="w-11 h-11 rounded-xl glass-subtle flex items-center justify-center text-accent mb-5 group-hover:scale-105 transition-transform duration-500">
+              <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+              </svg>
+            </div>
+            <h3 class="font-display text-lg sm:text-xl font-semibold text-white">Szybki czas realizacji</h3>
+            <p class="text-sm sm:text-base text-neutral-400 mt-2.5 leading-relaxed">
+              Konkretny proces bez przeciągania. Od krótkiego ustalenia szczegółów do gotowej strony w sieci w kilka dni roboczych.
+            </p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja 4: Realizacje -->
+    <section id="realizacje" class="relative overflow-hidden py-20 sm:py-24 border-t border-white/[0.08] scroll-mt-16">
+      <div class="section-glow-realizacje absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 relative">
+        <div class="max-w-2xl reveal">
+          <p class="text-xs font-medium uppercase tracking-[0.2em] text-accent">REALIZACJE</p>
+          <h2 class="font-display text-3xl sm:text-4xl font-bold tracking-tight text-white mt-3">Przykładowe projekty</h2>
+          <p class="text-neutral-400 text-base sm:text-lg mt-3 leading-relaxed">
+            Strony wizytówki zaprojektowane pod konkretne branże i konwersję na telefonie.
+          </p>
+        </div>
+
+        <div class="mt-12 grid grid-cols-1 md:grid-cols-3 gap-6">
+          <!-- Projekt 1: Salon fryzjerski -->
+          <article class="glass-card glass-card-hover glass-border-flow rounded-2xl overflow-hidden flex flex-col group reveal">
+            <div class="aspect-[16/10] bg-[#0B0B0D]/65 border-b border-white/[0.08] relative overflow-hidden p-4 flex flex-col justify-between">
+              <!-- Aby wstawić własny zrzut ekranu, zamień poniższą makietę na:
+                   <img src="sciezka/do/zrzutu.webp" alt="Salon Fryzjerski Atelier No. 7" class="w-full h-full object-cover" loading="lazy"> -->
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <div class="flex items-center gap-1.5" aria-hidden="true">
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-500">atelier7.krakow.pl</span>
+              </div>
+
+              <div class="my-auto pt-2">
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-[10px] uppercase tracking-widest text-accent font-medium">Kazimierz · Kraków</div>
+                    <div class="font-display text-sm font-semibold text-white mt-0.5">Atelier No. 7</div>
+                  </div>
+                  <span class="px-2 py-1 rounded-md bg-accent/15 border border-accent/30 text-[10px] font-medium text-accent-light">Umów wizytę</span>
+                </div>
+                <div class="mt-3 grid grid-cols-3 gap-2">
+                  <div class="rounded-lg bg-white/[0.04] border border-white/[0.08] p-2">
+                    <div class="h-1.5 w-8 rounded bg-neutral-600"></div>
+                    <div class="h-1 w-5 rounded bg-neutral-800 mt-1.5"></div>
+                  </div>
+                  <div class="rounded-lg bg-white/[0.04] border border-white/[0.08] p-2">
+                    <div class="h-1.5 w-9 rounded bg-neutral-600"></div>
+                    <div class="h-1 w-6 rounded bg-neutral-800 mt-1.5"></div>
+                  </div>
+                  <div class="rounded-lg bg-white/[0.04] border border-white/[0.08] p-2">
+                    <div class="h-1.5 w-7 rounded bg-neutral-600"></div>
+                    <div class="h-1 w-5 rounded bg-neutral-800 mt-1.5"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-neutral-500 pt-1">
+                <span>Strzyżenie · Koloryzacja</span>
+                <span class="text-neutral-400">Pn–Sb 9:00–20:00</span>
+              </div>
+            </div>
+
+            <div class="p-6 flex flex-col flex-1 relative">
+              <span class="absolute top-3 right-5 font-display text-5xl sm:text-6xl font-bold leading-none tracking-tighter text-white/[0.06] group-hover:text-accent/[0.16] transition-colors duration-500 select-none pointer-events-none" aria-hidden="true">01</span>
+              <span class="relative z-10 text-xs font-medium text-accent">Fryzjerstwo · Kazimierz</span>
+              <h3 class="relative z-10 pr-12 font-display text-lg font-semibold text-white mt-2">Salon Fryzjerski „Atelier No. 7”</h3>
+              <p class="relative z-10 text-sm text-neutral-400 mt-2 leading-relaxed flex-1">
+                Minimalistyczna wizytówka z przejrzystym cennikiem, galerią fryzur i szybkim telefonem do recepcji.
+              </p>
+              <button
+                type="button"
+                data-demo-id="fryzjer"
+                class="relative z-10 mt-6 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl glass-subtle glass-subtle-hover text-sm font-medium text-white hover:text-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span>Zobacz demo</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7"></path>
+                  <path d="M7 7h10v10"></path>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Projekt 2: Siłownia -->
+          <article class="glass-card glass-card-hover glass-border-flow border-delay-1 rounded-2xl overflow-hidden flex flex-col group reveal">
+            <div class="aspect-[16/10] bg-[#0B0B0D]/65 border-b border-white/[0.08] relative overflow-hidden p-4 flex flex-col justify-between">
+              <!-- Aby wstawić własny zrzut ekranu, zamień poniższą makietę na:
+                   <img src="sciezka/do/zrzutu.webp" alt="Siłownia Iron District" class="w-full h-full object-cover" loading="lazy"> -->
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <div class="flex items-center gap-1.5" aria-hidden="true">
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-500">irondistrict.pl</span>
+              </div>
+
+              <div class="my-auto pt-2">
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-[10px] uppercase tracking-widest text-accent font-medium">Podgórze · 24/7</div>
+                    <div class="font-display text-sm font-semibold text-white mt-0.5">Iron District Gym</div>
+                  </div>
+                  <span class="px-2 py-1 rounded-md bg-accent/15 border border-accent/30 text-[10px] font-medium text-accent-light">Karnety</span>
+                </div>
+                <div class="mt-3 grid grid-cols-2 gap-2">
+                  <div class="rounded-lg bg-white/[0.04] border border-white/[0.08] p-2.5 flex items-center justify-between">
+                    <div class="space-y-1.5">
+                      <div class="h-1.5 w-10 rounded bg-neutral-500"></div>
+                      <div class="h-1 w-7 rounded bg-neutral-800"></div>
+                    </div>
+                    <span class="text-[10px] font-display font-semibold text-white">149 zł</span>
+                  </div>
+                  <div class="rounded-lg bg-white/[0.06] border border-accent/40 p-2.5 flex items-center justify-between">
+                    <div class="space-y-1.5">
+                      <div class="h-1.5 w-10 rounded bg-white"></div>
+                      <div class="h-1 w-8 rounded bg-neutral-700"></div>
+                    </div>
+                    <span class="text-[10px] font-display font-semibold text-accent-light">189 zł</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-neutral-500 pt-1">
+                <span>Grafik zajęć · Trenerzy</span>
+                <span class="text-neutral-400">Mapa Google</span>
+              </div>
+            </div>
+
+            <div class="p-6 flex flex-col flex-1 relative">
+              <span class="absolute top-3 right-5 font-display text-5xl sm:text-6xl font-bold leading-none tracking-tighter text-white/[0.06] group-hover:text-accent/[0.16] transition-colors duration-500 select-none pointer-events-none" aria-hidden="true">02</span>
+              <span class="relative z-10 text-xs font-medium text-accent">Fitness · Podgórze</span>
+              <h3 class="relative z-10 pr-12 font-display text-lg font-semibold text-white mt-2">Siłownia „Iron District”</h3>
+              <p class="relative z-10 text-sm text-neutral-400 mt-2 leading-relaxed flex-1">
+                Dynamiczna strona lokalnego klubu z ofertą karnetów, grafikiem zajęć i interaktywną mapą dojazdu.
+              </p>
+              <button
+                type="button"
+                data-demo-id="silownia"
+                class="relative z-10 mt-6 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl glass-subtle glass-subtle-hover text-sm font-medium text-white hover:text-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span>Zobacz demo</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7"></path>
+                  <path d="M7 7h10v10"></path>
+                </svg>
+              </button>
+            </div>
+          </article>
+
+          <!-- Projekt 3: Cukiernia -->
+          <article class="glass-card glass-card-hover glass-border-flow border-delay-2 rounded-2xl overflow-hidden flex flex-col group reveal">
+            <div class="aspect-[16/10] bg-[#0B0B0D]/65 border-b border-white/[0.08] relative overflow-hidden p-4 flex flex-col justify-between">
+              <!-- Aby wstawić własny zrzut ekranu, zamień poniższą makietę na:
+                   <img src="sciezka/do/zrzutu.webp" alt="Cukiernia Słodka Pracownia" class="w-full h-full object-cover" loading="lazy"> -->
+              <div class="flex items-center justify-between border-b border-white/[0.08] pb-2.5">
+                <div class="flex items-center gap-1.5" aria-hidden="true">
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                  <span class="w-2 h-2 rounded-full bg-neutral-700"></span>
+                </div>
+                <span class="text-[10px] font-mono text-neutral-500">slodkapracownia.pl</span>
+              </div>
+
+              <div class="my-auto pt-2">
+                <div class="flex items-center justify-between gap-2">
+                  <div>
+                    <div class="text-[10px] uppercase tracking-widest text-accent font-medium">Stare Miasto</div>
+                    <div class="font-display text-sm font-semibold text-white mt-0.5">Słodka Pracownia</div>
+                  </div>
+                  <span class="px-2 py-1 rounded-md bg-accent/15 border border-accent/30 text-[10px] font-medium text-accent-light">Zamów tort</span>
+                </div>
+                <div class="mt-3 rounded-lg bg-white/[0.04] border border-white/[0.08] p-2.5 space-y-2">
+                  <div class="flex items-center justify-between">
+                    <div class="h-1.5 w-20 rounded bg-neutral-500"></div>
+                    <div class="h-1.5 w-8 rounded bg-accent/60"></div>
+                  </div>
+                  <div class="flex items-center justify-between">
+                    <div class="h-1.5 w-24 rounded bg-neutral-700"></div>
+                    <div class="h-1.5 w-8 rounded bg-neutral-700"></div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="flex items-center justify-between text-[10px] text-neutral-500 pt-1">
+                <span>Torty · Wypieki rzemieślnicze</span>
+                <span class="text-neutral-400">Otwarte 8:00–19:00</span>
+              </div>
+            </div>
+
+            <div class="p-6 flex flex-col flex-1 relative">
+              <span class="absolute top-3 right-5 font-display text-5xl sm:text-6xl font-bold leading-none tracking-tighter text-white/[0.06] group-hover:text-accent/[0.16] transition-colors duration-500 select-none pointer-events-none" aria-hidden="true">03</span>
+              <span class="relative z-10 text-xs font-medium text-accent">Gastronomia · Stare Miasto</span>
+              <h3 class="relative z-10 pr-12 font-display text-lg font-semibold text-white mt-2">Cukiernia „Słodka Pracownia”</h3>
+              <p class="relative z-10 text-sm text-neutral-400 mt-2 leading-relaxed flex-1">
+                Nowoczesna prezentacja oferty tortów na zamówienie, godzin otwarcia i lokalizacji w centrum Krakowa.
+              </p>
+              <button
+                type="button"
+                data-demo-id="cukiernia"
+                class="relative z-10 mt-6 inline-flex items-center justify-center gap-2 w-full py-2.5 px-4 rounded-xl glass-subtle glass-subtle-hover text-sm font-medium text-white hover:text-accent-light focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+              >
+                <span>Zobacz demo</span>
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M7 17 17 7"></path>
+                  <path d="M7 7h10v10"></path>
+                </svg>
+              </button>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Sekcja 5: Kontakt -->
+    <section id="kontakt" class="relative overflow-hidden py-20 sm:py-24 border-t border-white/[0.08] scroll-mt-16">
+      <div class="section-glow-kontakt absolute inset-0 pointer-events-none" aria-hidden="true"></div>
+      <div class="max-w-6xl mx-auto px-5 sm:px-6 relative">
+        <div class="glass-card glass-border-flow border-slow rounded-2xl p-6 sm:p-10 lg:p-12 relative overflow-hidden reveal">
+          <div class="max-w-2xl">
+            <p class="text-xs font-medium uppercase tracking-[0.2em] text-accent">KONTAKT</p>
+            <h2 class="font-display text-2xl sm:text-3xl lg:text-4xl font-bold tracking-tight text-white mt-3 leading-tight">
+              Napisz, a przygotuję darmowy podgląd Twojej strony
+            </h2>
+            <p class="text-neutral-400 text-sm sm:text-base mt-4 leading-relaxed">
+              Podaj nazwę firmy lub wyślij link do swojej wizytówki w Google. W 24–48 godzin przygotuję wstępny projekt strony głównej — bez zobowiązań.
+            </p>
+          </div>
+
+          <div class="mt-8 grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <!-- Kafelek E-mail -->
+            <div class="glass-subtle glass-subtle-hover glass-border-flow glass-border-subtle rounded-xl p-5 flex items-center justify-between gap-3">
+              <a
+                href="mailto:kontakt@horabik.com?subject=Darmowy%20podgl%C4%85d%20strony"
+                class="flex items-center gap-3.5 min-w-0 flex-1 group focus:outline-none"
+              >
+                <span class="w-11 h-11 shrink-0 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-accent group-hover:border-accent/50 transition-colors">
+                  <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                    <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                    <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                  </svg>
+                </span>
+                <span class="min-w-0">
+                  <span class="block text-xs text-neutral-400">E-mail</span>
+                  <!-- Podmień poniższy adres e-mail w href oraz tekście na swój docelowy -->
+                  <span class="block font-medium text-sm sm:text-base text-white group-hover:text-accent-light transition-colors truncate">
+                    kontakt@horabik.com
+                  </span>
+                </span>
+              </a>
+
+              <button
+                id="copy-email"
+                type="button"
+                data-email="kontakt@horabik.com"
+                class="shrink-0 px-3 py-2 rounded-lg bg-white/[0.05] border border-white/[0.1] text-xs font-medium text-neutral-300 hover:text-white hover:bg-white/[0.09] hover:border-accent/60 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+                aria-label="Skopiuj adres e-mail kontakt@horabik.com"
+              >
+                Kopiuj
+              </button>
+            </div>
+
+            <!-- Kafelek Telefon -->
+            <!-- Podmień numer telefonu w href (tel:+48...) oraz w widocznym tekście na swój numer -->
+            <a
+              href="tel:+48500000000"
+              class="glass-subtle glass-subtle-hover glass-border-flow glass-border-subtle border-delay-2 rounded-xl p-5 flex items-center gap-3.5 group focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+            >
+              <span class="w-11 h-11 shrink-0 rounded-xl bg-white/[0.05] border border-white/[0.1] flex items-center justify-center text-accent group-hover:border-accent/50 transition-colors">
+                <svg class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                </svg>
+              </span>
+              <span class="min-w-0">
+                <span class="block text-xs text-neutral-400">Telefon</span>
+                <span class="block font-medium text-sm sm:text-base text-white group-hover:text-accent-light transition-colors">
+                  +48 500 000 000
+                </span>
+                <span class="block text-xs text-neutral-500 mt-0.5">Kraków · Odpisuję tego samego dnia</span>
+              </span>
+            </a>
+          </div>
+
+          <p id="copy-status" class="sr-only" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Stopka -->
+  <footer class="border-t border-white/[0.08] py-8">
+    <div class="max-w-6xl mx-auto px-5 sm:px-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 text-xs sm:text-sm text-neutral-400">
+      <p>© <span id="year">2026</span> Filip Horabik · horabik.com</p>
+      <div class="flex items-center gap-6">
+        <span>Kraków · Szybkie strony dla lokalnych firm</span>
+        <a href="#top" class="text-neutral-300 hover:text-white transition-colors whitespace-nowrap">
+          Na górę ↑
+        </a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- Modal podglądu demo -->
+  <div
+    id="demo-modal"
+    class="fixed inset-0 z-50 hidden items-center justify-center p-4 sm:p-6 bg-black/75 backdrop-blur-md"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="modal-title"
+  >
+    <div id="modal-panel" class="w-full max-w-lg glass-modal glass-border-flow border-slow rounded-2xl p-6 sm:p-7 relative">
+      <div class="flex items-start justify-between gap-4">
+        <div>
+          <span id="modal-tag" class="text-xs font-medium text-accent"></span>
+          <h3 id="modal-title" class="font-display text-xl sm:text-2xl font-bold text-white mt-1.5"></h3>
+        </div>
+        <button
+          id="modal-close"
+          type="button"
+          class="w-9 h-9 shrink-0 rounded-lg glass-subtle glass-subtle-hover flex items-center justify-center text-neutral-400 hover:text-white focus:outline-none focus-visible:ring-2 focus-visible:ring-accent"
+          aria-label="Zamknij podgląd projektu"
+        >
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <line x1="6" y1="6" x2="18" y2="18"></line>
+            <line x1="18" y1="6" x2="6" y2="18"></line>
+          </svg>
+        </button>
+      </div>
+
+      <p id="modal-description" class="text-sm text-neutral-300 mt-4 leading-relaxed"></p>
+
+      <div class="mt-5 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div class="glass-subtle rounded-xl p-3.5">
+          <div class="text-xs text-neutral-400">Zakres wdrożenia</div>
+          <div id="modal-scope" class="text-sm font-medium text-white mt-1"></div>
+        </div>
+        <div class="glass-subtle rounded-xl p-3.5">
+          <div class="text-xs text-neutral-400">Wydajność</div>
+          <div id="modal-speed" class="text-sm font-medium text-accent-light mt-1"></div>
+        </div>
+      </div>
+
+      <div class="mt-4 glass-subtle rounded-xl p-4">
+        <div class="text-xs font-medium text-neutral-400 uppercase tracking-wider">Elementy pod telefon</div>
+        <ul id="modal-features" class="mt-2.5 space-y-2 text-sm text-neutral-300"></ul>
+      </div>
+
+      <div class="mt-6 flex flex-col-reverse sm:flex-row items-stretch sm:items-center justify-end gap-3">
+        <button
+          id="modal-secondary-close"
+          type="button"
+          class="px-4 py-2.5 rounded-xl glass-subtle glass-subtle-hover text-sm font-medium text-neutral-300 hover:text-white"
+        >
+          Zamknij
+        </button>
+        <a
+          id="modal-cta"
+          href="#kontakt"
+          class="inline-flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-accent hover:bg-accent-hover text-sm font-medium text-white shadow-[inset_0_1px_0_rgba(255,255,255,0.22),0_8px_20px_rgba(59,130,246,0.25)] transition-all"
+        >
+          Chcę podobną stronę
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Czysty JavaScript -->
+  <script>
+    (function () {
+      'use strict';
+
+      document.documentElement.classList.add('js-ready');
+
+      // Sprzątanie warstwy intro po zakończeniu animacji (maks. 0.9s)
+      var introCurtain = document.getElementById('intro-curtain');
+      if (introCurtain) {
+        var removeIntro = function () {
+          if (introCurtain && introCurtain.parentNode) {
+            introCurtain.parentNode.removeChild(introCurtain);
+          }
+        };
+        if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+          removeIntro();
+        } else {
+          introCurtain.addEventListener('animationend', function (event) {
+            if (event.animationName === 'intro-curtain-out') {
+              removeIntro();
+            }
+          });
+          setTimeout(removeIntro, 950);
+        }
+      }
+
+      // Aktualny rok w stopce
+      var yearEl = document.getElementById('year');
+      if (yearEl) {
+        yearEl.textContent = String(new Date().getFullYear());
+      }
+
+      // Animacja pojawiania się elementów podczas scrollowania
+      var revealElements = document.querySelectorAll('.reveal');
+      if ('IntersectionObserver' in window) {
+        var revealObserver = new IntersectionObserver(
+          function (entries, observer) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          },
+          { threshold: 0.12, rootMargin: '0px 0px -30px 0px' }
+        );
+        revealElements.forEach(function (el) {
+          revealObserver.observe(el);
+        });
+      } else {
+        revealElements.forEach(function (el) {
+          el.classList.add('is-visible');
+        });
+      }
+
+      // Hamburger menu na telefonie
+      var menuToggle = document.getElementById('menu-toggle');
+      var mobileMenu = document.getElementById('mobile-menu');
+      var iconMenu = document.getElementById('icon-menu');
+      var iconClose = document.getElementById('icon-close');
+      var mobileLinks = document.querySelectorAll('[data-mobile-link]');
+
+      function setMenuOpen(isOpen) {
+        if (!menuToggle || !mobileMenu) return;
+        menuToggle.setAttribute('aria-expanded', String(isOpen));
+        menuToggle.setAttribute('aria-label', isOpen ? 'Zamknij menu' : 'Otwórz menu');
+        mobileMenu.classList.toggle('hidden', !isOpen);
+        if (iconMenu && iconClose) {
+          iconMenu.classList.toggle('hidden', isOpen);
+          iconClose.classList.toggle('hidden', !isOpen);
+        }
+      }
+
+      if (menuToggle && mobileMenu) {
+        menuToggle.addEventListener('click', function () {
+          var isOpen = menuToggle.getAttribute('aria-expanded') === 'true';
+          setMenuOpen(!isOpen);
+        });
+
+        mobileLinks.forEach(function (link) {
+          link.addEventListener('click', function () {
+            setMenuOpen(false);
+          });
+        });
+
+        window.addEventListener('resize', function () {
+          if (window.innerWidth >= 768) {
+            setMenuOpen(false);
+          }
+        });
+      }
+
+      // Podświetlanie aktywnej sekcji w nawigacji
+      var navLinks = document.querySelectorAll('[data-nav-link]');
+      var trackedSections = document.querySelectorAll('section[id="oferta"], section[id="realizacje"], section[id="kontakt"]');
+
+      function setActiveNav(id) {
+        navLinks.forEach(function (link) {
+          var matches = link.getAttribute('href') === '#' + id;
+          link.classList.toggle('text-white', matches);
+          link.classList.toggle('text-neutral-400', !matches && !link.hasAttribute('data-mobile-link'));
+        });
+      }
+
+      if ('IntersectionObserver' in window && trackedSections.length > 0) {
+        var navObserver = new IntersectionObserver(
+          function (entries) {
+            entries.forEach(function (entry) {
+              if (entry.isIntersecting) {
+                setActiveNav(entry.target.id);
+              }
+            });
+          },
+          { rootMargin: '-35% 0px -50% 0px' }
+        );
+        trackedSections.forEach(function (section) {
+          navObserver.observe(section);
+        });
+      }
+
+      // Kopiowanie adresu e-mail do schowka
+      var copyBtn = document.getElementById('copy-email');
+      var copyStatus = document.getElementById('copy-status');
+      var copyTimeout = null;
+
+      function showCopiedFeedback() {
+        if (!copyBtn) return;
+        copyBtn.textContent = 'Skopiowano';
+        copyBtn.classList.remove('border-white/[0.1]', 'text-neutral-300');
+        copyBtn.classList.add('border-accent', 'text-accent-light');
+        if (copyStatus) {
+          copyStatus.textContent = 'Skopiowano adres e-mail do schowka.';
+        }
+        clearTimeout(copyTimeout);
+        copyTimeout = setTimeout(function () {
+          copyBtn.textContent = 'Kopiuj';
+          copyBtn.classList.remove('border-accent', 'text-accent-light');
+          copyBtn.classList.add('border-white/[0.1]', 'text-neutral-300');
+          if (copyStatus) {
+            copyStatus.textContent = '';
+          }
+        }, 2200);
+      }
+
+      if (copyBtn) {
+        copyBtn.addEventListener('click', function () {
+          var email = copyBtn.getAttribute('data-email') || 'kontakt@horabik.com';
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(email).then(showCopiedFeedback).catch(function () {
+              fallbackCopy(email);
+            });
+          } else {
+            fallbackCopy(email);
+          }
+        });
+      }
+
+      function fallbackCopy(text) {
+        var textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.setAttribute('readonly', '');
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+          document.execCommand('copy');
+          showCopiedFeedback();
+        } catch (err) {
+          // Brak wsparcia schowka
+        }
+        document.body.removeChild(textarea);
+      }
+
+      // Modal podglądu projektów demo
+      var DEMO_PROJECTS = {
+        fryzjer: {
+          tag: 'Fryzjerstwo · Kazimierz',
+          title: 'Salon Fryzjerski „Atelier No. 7”',
+          description: 'Czysta, elegancka wizytówka stworzona z myślą o klientkach rezerwujących wizytę z telefonu. Cennik usług jest czytelny bez powiększania ekranu.',
+          scope: 'Wizytówka One-Page + cennik + Google Maps',
+          speed: '99 / 100 Lighthouse (0,6 s)',
+          features: [
+            'Przycisk szybkiego telefonu i rezerwacji na pierwszym ekranie',
+            'Przejrzysty cennik strzyżenia i koloryzacji w formie zakładek',
+            'Wskazówki dojazdu z Kazimierza i aktualne godziny otwarcia'
+          ]
+        },
+        silownia: {
+          tag: 'Fitness · Podgórze',
+          title: 'Siłownia „Iron District”',
+          description: 'Szybka strona sprzedażowa dla lokalnego klubu fitness. Od razu pokazuje ceny karnetów, grafik zajęć grupowych i dokładną lokalizację parkingu.',
+          scope: 'Strona wizytówka + tabela karnetów + mapa',
+          speed: '100 / 100 Lighthouse (0,5 s)',
+          features: [
+            'Czytelne porównanie karnetów bez zbędnych formularzy',
+            'Mobilny grafik zajęć z podziałem na dni tygodnia',
+            'Bezpośredni link do nawigacji Google Maps w jednym kliknięciu'
+          ]
+        },
+        cukiernia: {
+          tag: 'Gastronomia · Stare Miasto',
+          title: 'Cukiernia „Słodka Pracownia”',
+          description: 'Minimalistyczna prezentacja pracowni tortów artystycznych i codziennych wypieków w centrum Krakowa, z naciskiem na szybkie zapytania o torty.',
+          scope: 'Strona wizytówka + oferta tortów + kontakt',
+          speed: '99 / 100 Lighthouse (0,6 s)',
+          features: [
+            'Lekka galeria realizacji zoptymalizowana pod format WebP',
+            'Krótka lista smaków i terminów realizacji zamówień',
+            'Widoczny status godzin otwarcia i szybki kontakt telefoniczny'
+          ]
+        }
+      };
+
+      var modal = document.getElementById('demo-modal');
+      var modalPanel = document.getElementById('modal-panel');
+      var modalTag = document.getElementById('modal-tag');
+      var modalTitle = document.getElementById('modal-title');
+      var modalDescription = document.getElementById('modal-description');
+      var modalScope = document.getElementById('modal-scope');
+      var modalSpeed = document.getElementById('modal-speed');
+      var modalFeatures = document.getElementById('modal-features');
+      var modalClose = document.getElementById('modal-close');
+      var modalSecondaryClose = document.getElementById('modal-secondary-close');
+      var modalCta = document.getElementById('modal-cta');
+      var demoButtons = document.querySelectorAll('[data-demo-id]');
+      var lastFocusedElement = null;
+
+      function openModal(demoId, triggerEl) {
+        var project = DEMO_PROJECTS[demoId];
+        if (!project || !modal) return;
+
+        lastFocusedElement = triggerEl || document.activeElement;
+        modalTag.textContent = project.tag;
+        modalTitle.textContent = project.title;
+        modalDescription.textContent = project.description;
+        modalScope.textContent = project.scope;
+        modalSpeed.textContent = project.speed;
+
+        modalFeatures.innerHTML = '';
+        project.features.forEach(function (item) {
+          var li = document.createElement('li');
+          li.className = 'flex items-start gap-2.5';
+          li.innerHTML = '<span class="mt-1.5 w-1.5 h-1.5 rounded-full bg-accent shrink-0" aria-hidden="true"></span><span></span>';
+          li.querySelector('span:last-child').textContent = item;
+          modalFeatures.appendChild(li);
+        });
+
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+        if (modalClose) modalClose.focus();
+      }
+
+      function closeModal() {
+        if (!modal || modal.classList.contains('hidden')) return;
+        modal.classList.add('hidden');
+        modal.classList.remove('flex');
+        document.body.style.overflow = '';
+        if (lastFocusedElement && typeof lastFocusedElement.focus === 'function') {
+          lastFocusedElement.focus();
+        }
+      }
+
+      demoButtons.forEach(function (btn) {
+        btn.addEventListener('click', function () {
+          openModal(btn.getAttribute('data-demo-id'), btn);
+        });
+      });
+
+      if (modalClose) modalClose.addEventListener('click', closeModal);
+      if (modalSecondaryClose) modalSecondaryClose.addEventListener('click', closeModal);
+      if (modalCta) modalCta.addEventListener('click', closeModal);
+
+      if (modal && modalPanel) {
+        modal.addEventListener('click', function (event) {
+          if (!modalPanel.contains(event.target)) {
+            closeModal();
+          }
+        });
+      }
+
+      document.addEventListener('keydown', function (event) {
+        if (event.key === 'Escape') {
+          closeModal();
+          setMenuOpen(false);
+        }
+      });
+    })();
+  </script>
+</body>
+</html>
